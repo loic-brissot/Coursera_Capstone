@@ -1,0 +1,2369 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CP-W5-lbrissot}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Capstone Project Week 3 by Loïc BRISSOT: Business
+Analysis}\label{capstone-project-week-3-by-louxefc-brissot-business-analysis}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Table of Contents}\label{table-of-contents}
+
+ 1. Introduction \\
+2. Data\\
+3. Methodology \\
+3. 1. Exploratory Data Analysis \\
+3. 2. Scoring \\
+4. Results and Discussion\\
+5. Conclusion \\
+
+    \subsection{1. Introduction}\label{introduction}
+
+Jean-Philippe starts a new job on the other side of the town in two
+months. Right now he appreciates the neighborhood he lives in and he
+only has to walk 15mn to be at his job. He really appreciates the
+quality of life he has. With the future job his travel time will
+drastically change and he considers moving. He wants to find a
+neighborhood that will allow him to maintain his activities and a low
+travel time.
+
+In his daily life Jean-Philippe likes practising tennis and hanging out
+with his friends at Chinese restaurant and movie theaters. A
+neighborhood where he would be comfortable needs to have several of
+those facilities and those facilities should be well ranked/appreciated.
+To solve this problem, we will rank all the neighborhoods of Paris.
+
+To rank the best neighborhoods we will create a score that behaves on
+the following conditions:
+
+\begin{equation}
+\begin{cases}
+neighborhoodScore = \alpha_1*travelScore + \alpha_2*sportScore + \alpha_3*restaurantScore + \alpha_4*cultureScore
+\\ \sum \alpha_i =1
+\end{cases}
+\end{equation}
+
+The parameters and score will be defined in the methodology section.
+
+    \subsection{2. Data}\label{data}
+
+To analyze the composition of Jean-Philippe's current neighborhoods and
+the neighborhoods where he could live we will use the FourSquare API:
+https://developer.foursquare.com/
+
+To map Paris and its administrative borough we will use the geospatial
+data available at:
+https://opendata.paris.fr/explore/dataset/quartier\_paris/table/?sort=-c\_qu\&location=12,48.85889,2.34692\&basemap=jawg.streets
+
+To measure travel times inside Paris with the public transportation
+system and walking distances we will use the Citymapper API:
+https://citymapper.3scale.net/
+
+    \subsection{3. Methodology}\label{methodology}
+
+For each neighborhood we will use the center of the neighborhood as
+given by the geospatial data file to simulate the adress of
+Jean-Philippe's possible new home.
+
+Ideally we wouldn't use the center of the neighborhood as given by the
+geospatial data but we do not have unlimited API calls to measure travel
+time between Jean-Philippe's home and his new job. Later on, we might be
+able to refine this part of the project.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{3.1. Exploratory Data Analysis and Data
+Wrangling}\label{exploratory-data-analysis-and-data-wrangling}
+
+First, we need to import libraries.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} General libraries}
+         
+         \PY{c+c1}{\PYZsh{} Handling data}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{time} \PY{c+c1}{\PYZsh{} To set pauses in\PYZhy{}between API calls}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         
+         \PY{c+c1}{\PYZsh{} Nominatim converts an address into latitude and longitude values}
+         \PY{o}{!}conda install \PYZhy{}c conda\PYZhy{}forge geopy \PYZhy{}\PYZhy{}yes 
+         \PY{k+kn}{from} \PY{n+nn}{geopy}\PY{n+nn}{.}\PY{n+nn}{geocoders} \PY{k}{import} \PY{n}{Nominatim}
+         
+         \PY{c+c1}{\PYZsh{} Handling API requests}
+         \PY{k+kn}{import} \PY{n+nn}{requests}
+         
+         \PY{c+c1}{\PYZsh{} Reading JSON files}
+         \PY{k+kn}{import} \PY{n+nn}{json}
+         
+         \PY{c+c1}{\PYZsh{} Tranforming JSON file into a pandas dataframe library}
+         \PY{k+kn}{from} \PY{n+nn}{pandas}\PY{n+nn}{.}\PY{n+nn}{io}\PY{n+nn}{.}\PY{n+nn}{json} \PY{k}{import} \PY{n}{json\PYZus{}normalize}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Solving environment: {\ldots}working{\ldots} done
+
+\# All requested packages already installed.
+
+Solving environment: {\ldots}working{\ldots} done
+
+\# All requested packages already installed.
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}850}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Data visualization}
+          
+          \PY{c+c1}{\PYZsh{} Inline backend to generate the plots within the browser}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+          
+          \PY{c+c1}{\PYZsh{} Displaying plots and graphs}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{mpl}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{n}{mpl}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Optional: for ggplot\PYZhy{}like style}
+          
+          \PY{c+c1}{\PYZsh{} Displaying maps}
+          \PY{o}{!}conda install \PYZhy{}c conda\PYZhy{}forge \PY{n+nv}{folium}\PY{o}{=}\PY{l+m}{0}.5.0 \PYZhy{}\PYZhy{}yes
+          \PY{k+kn}{import} \PY{n+nn}{folium}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.1.1. Paris Geospatial Data}\label{paris-geospatial-data}
+
+Let's read the JSON file containing the geospatial data and insert it
+into a Pandas dataframe.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}734}]:} \PY{c+c1}{\PYZsh{} Recovering and reading the JSON file}
+          \PY{n}{paris\PYZus{}neighborhoods\PYZus{}json} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier\PYZus{}paris.geojson}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} geojson file}
+          
+          \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{paris\PYZus{}neighborhoods\PYZus{}json}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+              \PY{n}{paris\PYZus{}neighborhoods} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Extracting the relevant parts of the JSON and normalizing it into a dataframe}
+          \PY{n}{neighborhoods} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{paris\PYZus{}neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}734}]:}                                 geometry.coordinates geometry.type  \textbackslash{}
+          0  [[[2.367101341254551, 48.86162755885409], [2.3{\ldots}       Polygon   
+          1  [[[2.361313701339139, 48.84858030437791], [2.3{\ldots}       Polygon   
+          2  [[[2.364561460891576, 48.843657461143984], [2{\ldots}       Polygon   
+          
+             properties.c\_ar  properties.c\_qu  properties.c\_quinsee  \textbackslash{}
+          0                3               10               7510302   
+          1                4               16               7510404   
+          2                5               18               7510502   
+          
+                                  properties.geom\_x\_y     properties.l\_qu  \textbackslash{}
+          0   [48.86388739200148, 2.3631233009869512]      Enfants-Rouges   
+          1   [48.85289558621802, 2.3527750121216866]          Notre-Dame   
+          2  [48.841940193375144, 2.3568938896247458]  Jardin-des-Plantes   
+          
+             properties.longueur  properties.n\_sq\_ar  properties.n\_sq\_qu  \textbackslash{}
+          0          2139.535591           750000003           750000010   
+          1          3282.999717           750000004           750000016   
+          2          4052.473226           750000005           750000018   
+          
+             properties.objectid  properties.perimetre  properties.surface     type  
+          0                   50           2139.625388       271750.323937  Feature  
+          1                   56           3283.163371       378252.153674  Feature  
+          2                   58           4052.729521       798389.398463  Feature  
+\end{Verbatim}
+            
+    The dataframe contains more data than we need. We can clean the parts we
+like and drop the superfluous.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}735}]:} \PY{c+c1}{\PYZsh{} Dropping useless columns}
+          \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry.type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{properties.c\PYZus{}quinsee}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{properties.n\PYZus{}sq\PYZus{}ar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{properties.objectid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{properties.n\PYZus{}sq\PYZus{}qu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{properties.longueur}\PY{l+s+s1}{\PYZsq{}}
+                             \PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Renaming columns}
+          \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n+nb}{str}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{geometry.coordinates}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coordonnees\PYZus{}frontiere}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{properties.geom\PYZus{}x\PYZus{}y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coordonees\PYZus{}centre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{properties.l\PYZus{}qu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{quartier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{properties.c\PYZus{}ar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{arrondissement}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{properties.c\PYZus{}qu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{numero\PYZus{}quartier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{properties.perimetre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{perimetre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{properties.surface}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{surface}\PY{l+s+s2}{\PYZdq{}}
+                                                  \PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Sorting}
+          \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numero\PYZus{}quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Resetting index}
+          \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Splitting the coordinates from the center of the neighborhood}
+          \PY{n}{lat\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{long\PYZus{}list} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{lat\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coordonees\PYZus{}centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{long\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coordonees\PYZus{}centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lat\PYZus{}list}
+          \PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{long\PYZus{}list}
+          
+          \PY{c+c1}{\PYZsh{} Sorting the columns}
+          \PY{n}{neighborhoods} \PY{o}{=} \PY{n}{neighborhoods}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numero\PYZus{}quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrondissement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coordonees\PYZus{}centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coordonnees\PYZus{}frontiere}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perimetre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surface}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}735}]:}    numero\_quartier  arrondissement                quartier   latitude  \textbackslash{}
+          0                1               1  St-Germain-l'Auxerrois  48.860650   
+          1                2               1                  Halles  48.862289   
+          2                3               1            Palais-Royal  48.864660   
+          
+             longitude                        coordonees\_centre  \textbackslash{}
+          0   2.334910   [48.86065013520992, 2.334910329280203]   
+          1   2.344899   [48.86228910809422, 2.344898858311021]   
+          2   2.336309  [48.86465997810258, 2.3363089189653086]   
+          
+                                         coordonnees\_frontiere    perimetre  \textbackslash{}
+          0  [[[2.344593389828428, 48.854049914861925], [2{\ldots}  5057.549475   
+          1  [[[2.349365804803003, 48.86057567227663], [2.3{\ldots}  2606.417128   
+          2  [[[2.339465868602756, 48.86213531210705], [2.3{\ldots}  2166.839239   
+          
+                   surface  
+          0  869000.664564  
+          1  412458.496330  
+          2  273696.793301  
+\end{Verbatim}
+            
+    The data is now well formated.
+
+In the next step we will check that everything is in place by displaying
+the neighborhoods.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}736}]:} \PY{c+c1}{\PYZsh{} Recovering the coordinates for Paris with Nominatim}
+          \PY{n}{address} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paris, France}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{geolocator} \PY{o}{=} \PY{n}{Nominatim}\PY{p}{(}\PY{p}{)}
+          \PY{n}{location} \PY{o}{=} \PY{n}{geolocator}\PY{o}{.}\PY{n}{geocode}\PY{p}{(}\PY{n}{address}\PY{p}{)}
+          \PY{n}{paris\PYZus{}latitude} \PY{o}{=} \PY{n}{location}\PY{o}{.}\PY{n}{latitude}
+          \PY{n}{paris\PYZus{}longitude} \PY{o}{=} \PY{n}{location}\PY{o}{.}\PY{n}{longitude}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}LoicBrissot\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}geopy\textbackslash{}geocoders\textbackslash{}osm.py:143: UserWarning: Using Nominatim with the default "geopy/1.17.0" `user\_agent` is strongly discouraged, as it violates Nominatim's ToS https://operations.osmfoundation.org/policies/nominatim/ and may possibly cause 403 and 429 HTTP errors. Please specify a custom `user\_agent` with `Nominatim(user\_agent="my-application")` or by overriding the default `user\_agent`: `geopy.geocoders.options.default\_user\_agent = "my-application"`. In geopy 2.0 this will become an exception.
+  UserWarning
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}737}]:} \PY{c+c1}{\PYZsh{} Create a plain map centered on Paris}
+          \PY{n}{map\PYZus{}paris} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{paris\PYZus{}latitude}\PY{p}{,} \PY{n}{paris\PYZus{}longitude}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{800}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Option 1. Choropleth map to display neighborhood boundaries}
+          \PY{n}{map\PYZus{}paris}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+              \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{paris\PYZus{}neighborhoods\PYZus{}json}\PY{p}{,}
+              \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} 
+              \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.8}
+          \PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Option 2. Choropleth map using neighborhoods and sequential data}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}map\PYZus{}paris.choropleth(}
+          \PY{l+s+sd}{    geo\PYZus{}data=paris\PYZus{}neighborhoods\PYZus{}json,}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{    data=neighborhoods,}
+          \PY{l+s+sd}{    columns=[\PYZsq{}quartier\PYZsq{}, \PYZsq{}surface\PYZsq{}],}
+          \PY{l+s+sd}{    key\PYZus{}on=\PYZsq{}feature.properties.l\PYZus{}qu\PYZsq{},}
+          \PY{l+s+sd}{    \PYZsh{} Color brewer palettes: ‘BuGn’, ‘BuPu’, ‘GnBu’, ‘OrRd’, ‘PuBu’, ‘PuBuGn’,}
+          \PY{l+s+sd}{    \PYZsh{}                        ‘PuRd’, ‘RdPu’, ‘YlGn’, ‘YlGnBu’, ‘YlOrBr’, and ‘YlOrRd\PYZsq{}}
+          \PY{l+s+sd}{    fill\PYZus{}color=\PYZsq{}PuBuGn\PYZsq{},}
+          \PY{l+s+sd}{    fill\PYZus{}opacity=0.4, }
+          \PY{l+s+sd}{    line\PYZus{}opacity=0.8,}
+          \PY{l+s+sd}{    legend\PYZus{}name=\PYZsq{}Surface in square km\PYZsq{}}
+          \PY{l+s+sd}{)\PYZsq{}\PYZsq{}\PYZsq{}}
+          
+          \PY{c+c1}{\PYZsh{} Add neighborhood markers to the map}
+          \PY{c+c1}{\PYZsh{} NB: If the chloropleth is added after the markers, the markers wont\PYZsq{}t display their labels}
+          \PY{k}{for} \PY{n}{coord}\PY{p}{,} \PY{n}{borough}\PY{p}{,} \PY{n}{neighborhood} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coordonees\PYZus{}centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                     \PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrondissement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                     \PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{neighborhood}\PY{p}{,} \PY{n}{borough}\PY{p}{)}
+              \PY{n}{label} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{parse\PYZus{}html}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                  \PY{n}{coord}\PY{p}{,}
+                  \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                  \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                  \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}3186cc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}paris}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Display map}
+          \PY{n}{map\PYZus{}paris}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}737}]:} <folium.folium.Map at 0x1a14eeea048>
+\end{Verbatim}
+            
+    The neighborhoods are correctly segmented and displayed on the map. Most
+of the 'neighborhood central points' seem to be placed in the middle of
+their neighborhood.
+
+The neighborhoods on the far east and far west side (Muette, Auteuil,
+Bel-Air, Picpus) have odd shapes
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.1.2. Exploring Neighborhood Venues with the FourSquare
+API}\label{exploring-neighborhood-venues-with-the-foursquare-api}
+
+For a given neighborhood we want to be able to :
+
+\begin{itemize}
+\tightlist
+\item
+  List the nearby tennis and squash courts.
+\item
+  List the nearby Chinese restaurants and their rating.
+\item
+  Determine if there is a nearby movie theatre.
+\end{itemize}
+
+\begin{quote}
+https://api.foursquare.com/v2/venues/search?client\_id=CLIENT\_ID\&client\_secret=CLIENT\_SECRET\&ll=LATITUDE,LONGITUDE\&v=VERSION\&query=QUERY\&radius=RADIUS\&limit=LIMIT
+\end{quote}
+
+For each point we will use a basic search with FourSquare and filter the
+results by category.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}598}]:} \PY{c+c1}{\PYZsh{} FourSquare API key}
+          \PY{n}{CLIENT\PYZus{}ID} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XXX}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{CLIENT\PYZus{}SECRET} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XXX}\PY{l+s+s1}{\PYZsq{}}
+          \PY{c+c1}{\PYZsh{}VERSION = \PYZsq{}20180604\PYZsq{}}
+          \PY{n}{VERSION} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20181118}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.1.2.1. Listing Nearby Tennis and Squash
+Courts}\label{listing-nearby-tennis-and-squash-courts}
+
+First we want to see what are the categories that we should filter to be
+sure to get all the tennis courts in Paris. Let's explore the results
+for the word "tennis" in a 8km radius around the city center.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} Defining API call parameters}
+         \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{8000}
+         \PY{n}{LIMIT} \PY{o}{=} \PY{l+m+mi}{50}
+         \PY{n}{latitude} \PY{o}{=} \PY{n}{paris\PYZus{}latitude}
+         \PY{n}{longitude} \PY{o}{=} \PY{n}{paris\PYZus{}longitude}
+         \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tennis}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{} Generating API call URL}
+         \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/search?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+             \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+         \PY{n}{url}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}98}]:} 'https://api.foursquare.com/v2/venues/search?client\_id=MINC5HMAVUIR0X4KWSLC5SMGXEHGWD0PAZZ00VSEAOCCIWHM\&client\_secret=4RDNGFQTYIPPYB3AQML54W0V3LPJPSFVC5IRUNQLU3UZPAL3\&ll=48.8566101,2.3514992\&v=20181118\&query=Tennis\&radius=8000\&limit=100'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{} API call with the FourSquare API}
+          \PY{n}{results\PYZus{}tennis} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{c+c1}{\PYZsh{} We import of the results into a dataframe to make the visualization easier}
+          \PY{n}{df\PYZus{}tennis} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{results\PYZus{}tennis}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}tennis}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:}                                           categories  hasPerk  \textbackslash{}
+          0  [\{'id': '4e39a956bd410d7aed40cbc3', 'name': 'T{\ldots}    False   
+          1  [\{'id': '4e39a891bd410d7aed40cbc2', 'name': 'T{\ldots}    False   
+          
+                                   id          location.address location.cc  \textbackslash{}
+          0  4adcda15f964a520bc3721e3      Jardin du Luxembourg          FR   
+          1  4f72153fe4b0c719b2f44242  5 rue Neuve Saint-Pierre          FR   
+          
+            location.city location.country location.crossStreet  location.distance  \textbackslash{}
+          0         Paris           France                  NaN               1649   
+          1         Paris           France                  NaN                932   
+          
+                                   location.formattedAddress  \textbackslash{}
+          0      [Jardin du Luxembourg, 75006 Paris, France]   
+          1  [5 rue Neuve Saint-Pierre, 75004 Paris, France]   
+          
+                                       location.labeledLatLngs  location.lat  \textbackslash{}
+          0  [\{'label': 'display', 'lat': 48.84706047412405{\ldots}      48.84706   
+          1  [\{'label': 'display', 'lat': 48.85376985160138{\ldots}      48.85377   
+          
+             location.lng location.postalCode location.state  \textbackslash{}
+          0      2.334287               75006  Île-de-France   
+          1      2.363470               75004  Île-de-France   
+          
+                                       name    referralId  
+          0  Tennis du Jardin du Luxembourg  v-1542804649  
+          1       Tennis Neuve Saint-Pierre  v-1542804649  
+\end{Verbatim}
+            
+    The content of the request has been recovered. We need to filter the
+results to be able to use it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{} Function that extracts the category of the venue}
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}category\PYZus{}type}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+              \PY{k}{try}\PY{p}{:}
+                  \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{k}{except}\PY{p}{:}
+                  \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  
+              \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{categories\PYZus{}list}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{k}{return} \PY{k+kc}{None}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{return} \PY{n}{categories\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{c+c1}{\PYZsh{} We keep only the columns that include venue name, and anything that is associated with location}
+          \PY{n}{filtered\PYZus{}columns\PYZus{}tennis} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}tennis}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{df\PYZus{}tennis\PYZus{}filtered} \PY{o}{=} \PY{n}{df\PYZus{}tennis}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns\PYZus{}tennis}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} We filter the category for each row}
+          \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Cleaning column names by keeping only the last term}
+          \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{column}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+          
+          \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:}                              name      categories                   address  \textbackslash{}
+          0  Tennis du Jardin du Luxembourg    Tennis Court      Jardin du Luxembourg   
+          1       Tennis Neuve Saint-Pierre  Tennis Stadium  5 rue Neuve Saint-Pierre   
+          
+             cc   city country crossStreet  distance  \textbackslash{}
+          0  FR  Paris  France         NaN      1649   
+          1  FR  Paris  France         NaN       932   
+          
+                                            formattedAddress  \textbackslash{}
+          0      [Jardin du Luxembourg, 75006 Paris, France]   
+          1  [5 rue Neuve Saint-Pierre, 75004 Paris, France]   
+          
+                                                labeledLatLngs       lat       lng  \textbackslash{}
+          0  [\{'label': 'display', 'lat': 48.84706047412405{\ldots}  48.84706  2.334287   
+          1  [\{'label': 'display', 'lat': 48.85376985160138{\ldots}  48.85377  2.363470   
+          
+            postalCode          state                        id  
+          0      75006  Île-de-France  4adcda15f964a520bc3721e3  
+          1      75004  Île-de-France  4f72153fe4b0c719b2f44242  
+\end{Verbatim}
+            
+    We are only interested in the different categories here. Let's see what
+are the different values that the 'categories' column can take.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{dict}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} ['Tennis Court',
+           'Tennis Stadium',
+           'Train Station',
+           None,
+           'Athletics \& Sports',
+           'Other Great Outdoors',
+           'Office',
+           'Sports Club',
+           'Sporting Goods Shop',
+           'Stadium',
+           'General Entertainment']
+\end{Verbatim}
+            
+    After eliminating irrelevant results like sporting goods shops and
+outdated results, the categories that may be relevant are: 'Tennis
+Court', 'Tennis Stadium', 'Sports Club', 'Stadium'.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{c+c1}{\PYZsh{} Venue categories that include tennis courts}
+          \PY{n}{tennis\PYZus{}categories} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tennis Court}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tennis Stadium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sports Club}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Stadium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Just for fun, let's visualize all the tennis-related venues in Paris.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{c+c1}{\PYZsh{} Removing simple quotes from label names as they prevent the map from being displayed}
+          \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mapname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}697}]:} \PY{c+c1}{\PYZsh{} Generate a map centered on Paris}
+          \PY{n}{tennis\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Add tennis courts as blue circle markers}
+          \PY{k}{for} \PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{lat}\PY{p}{,} \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{lng}\PY{p}{,} \PY{n}{df\PYZus{}tennis\PYZus{}filtered}\PY{o}{.}\PY{n}{mapname}\PY{p}{)}\PY{p}{:}
+              \PY{n}{folium}\PY{o}{.}\PY{n}{features}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                  \PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                  \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                  \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.6}
+                  \PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{tennis\PYZus{}map}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Display map}
+          \PY{n}{tennis\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}697}]:} <folium.folium.Map at 0x1a154967358>
+\end{Verbatim}
+            
+    For each neighborhood we will now get the distance of the closest tennis
+court. If there is no tennis court in a 2.5 km radius, then the distance
+will be set to 2500m.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}288}]:} \PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tennis\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}290}]:} \PY{c+c1}{\PYZsh{} Defining API call parameters}
+          \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{2500}
+          \PY{n}{LIMIT} \PY{o}{=} \PY{l+m+mi}{5}
+          \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tennis}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{p}{(}\PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tennis\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} Safeguard option in case we need to run the loop several times}
+                  \PY{n}{latitude} \PY{o}{=} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{longitude} \PY{o}{=} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{c+c1}{\PYZsh{} Generating API call URL}
+                  \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/search?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                      \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} API call with the FourSquare API}
+                  \PY{n}{results\PYZus{}API\PYZus{}raw} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} Normalize the API result into a dataframe}
+                  \PY{n}{results\PYZus{}tennis\PYZus{}neighborhood} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{results\PYZus{}API\PYZus{}raw}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{} Filtering the API results to keep distance and category}
+                  \PY{n}{df\PYZus{}tennis\PYZus{}neighborhood} \PY{o}{=} \PY{n}{results\PYZus{}tennis\PYZus{}neighborhood}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+                  \PY{n}{df\PYZus{}tennis\PYZus{}neighborhood}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tennis\PYZus{}neighborhood}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} Extracting categories}
+          
+                  \PY{c+c1}{\PYZsh{} Filtering tennis\PYZhy{}related venues to keep only the tennis courts}
+                  \PY{n}{df\PYZus{}tennis\PYZus{}neighborhood} \PY{o}{=} \PY{n}{df\PYZus{}tennis\PYZus{}neighborhood}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}tennis\PYZus{}neighborhood}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{tennis\PYZus{}categories}\PY{p}{)}\PY{p}{]}
+          
+                  \PY{n}{df\PYZus{}tennis\PYZus{}neighborhood}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} Sorting the tennis courts by distance}
+                  \PY{k}{try}\PY{p}{:} \PY{c+c1}{\PYZsh{} Extracting the distance of the closest court}
+                      \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tennis\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tennis\PYZus{}neighborhood}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+                  \PY{k}{except}\PY{p}{:} \PY{c+c1}{\PYZsh{} If there is no closest court we set \PYZsq{}tennis\PYZus{}distance\PYZsq{} to 2500m}
+                      \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tennis\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2500}
+                  
+                  \PY{c+c1}{\PYZsh{} Wait time between requests to avoid bad results due to latency or }
+                  \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}291}]:} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}291}]:}    numero\_quartier  arrondissement                quartier   latitude  \textbackslash{}
+          0                1               1  St-Germain-l'Auxerrois  48.860650   
+          1                2               1                  Halles  48.862289   
+          2                3               1            Palais-Royal  48.864660   
+          3                4               1           Place-Vendôme  48.867019   
+          4                5               2                 Gaillon  48.869307   
+          
+             longitude  tennis\_distance  
+          0   2.334910             1513  
+          1   2.344899             1864  
+          2   2.336309             1964  
+          3   2.328582             2260  
+          4   2.333432             2477  
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.1.2.2. Exploring the nearby
+restaurants}\label{exploring-the-nearby-restaurants}
+
+In this section we want to explore the nearby restaurants. Our goal is
+to determine if there are multiple Chinese restaurants in a walking
+radius around a certain position and find the rating for those
+restaurants.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}267}]:} \PY{c+c1}{\PYZsh{} Defining API call parameters}
+          \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{1000}
+          \PY{n}{LIMIT} \PY{o}{=} \PY{l+m+mi}{50} \PY{c+c1}{\PYZsh{} max is 50}
+          \PY{n}{latitude} \PY{o}{=} \PY{n}{paris\PYZus{}latitude}
+          \PY{n}{longitude} \PY{o}{=} \PY{n}{paris\PYZus{}longitude}
+          \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chinese Restaurant}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{c+c1}{\PYZsh{} Generating API call URL}
+          \PY{c+c1}{\PYZsh{} url = \PYZsq{}https://api.foursquare.com/v2/venues/search?client\PYZus{}id=\PYZob{}\PYZcb{}\PYZam{}client\PYZus{}secret=\PYZob{}\PYZcb{}\PYZam{}ll=\PYZob{}\PYZcb{},\PYZob{}\PYZcb{}\PYZam{}v=\PYZob{}\PYZcb{}\PYZam{}query=\PYZob{}\PYZcb{}\PYZam{}radius=\PYZob{}\PYZcb{}\PYZam{}limit=\PYZob{}\PYZcb{}\PYZsq{}.format(}
+          \PY{c+c1}{\PYZsh{}    CLIENT\PYZus{}ID, CLIENT\PYZus{}SECRET, latitude, longitude, VERSION, search\PYZus{}query, radius, LIMIT)}
+          \PY{n}{url\PYZus{}chinese} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/explore?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}time=any\PYZam{}day=any}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+          
+          \PY{n}{url\PYZus{}chinese}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}267}]:} 'https://api.foursquare.com/v2/venues/explore?client\_id=MINC5HMAVUIR0X4KWSLC5SMGXEHGWD0PAZZ00VSEAOCCIWHM\&client\_secret=4RDNGFQTYIPPYB3AQML54W0V3LPJPSFVC5IRUNQLU3UZPAL3\&ll=48.8566101,2.3514992\&v=20181118\&query=Chinese Restaurant\&radius=1000\&limit=50\&time=any\&day=any'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}268}]:} \PY{c+c1}{\PYZsh{} API call with the FourSquare API}
+          \PY{n}{results\PYZus{}food} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url\PYZus{}chinese}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}273}]:} \PY{n}{items} \PY{o}{=} \PY{n}{results\PYZus{}food}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{items}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dataframe} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{items}\PY{p}{)} \PY{c+c1}{\PYZsh{} flatten JSON}
+          
+          \PY{c+c1}{\PYZsh{} filter columns}
+          \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{dataframe}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{df\PYZus{}food} \PY{o}{=} \PY{n}{dataframe}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} filter the category for each row}
+          \PY{n}{df\PYZus{}food}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} clean columns}
+          \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+          
+          \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}273}]:}                         name          categories               address  cc  \textbackslash{}
+          0        Le Céleste Gourmand  Chinese Restaurant  8 rue de la Tacherie  FR   
+          1  Raviolis Chinois Nord-Est  Chinese Restaurant   115 rue Saint-Denis  FR   
+          2  Trois Fois plus de Piment  Chinese Restaurant  Rue Saint-Martin 184  FR   
+          
+              city country   crossStreet  distance  \textbackslash{}
+          0  Paris  France           NaN       150   
+          1  Paris  France           NaN       707   
+          2  Paris  France  Rue aux Ours       691   
+          
+                                              formattedAddress  \textbackslash{}
+          0        [8 rue de la Tacherie, 75004 Paris, France]   
+          1         [115 rue Saint-Denis, 75001 Paris, France]   
+          2  [Rue Saint-Martin 184 (Rue aux Ours), 75003 Pa{\ldots}   
+          
+                                                labeledLatLngs        lat       lng  \textbackslash{}
+          0  [\{'label': 'display', 'lat': 48.8575663350315,{\ldots}  48.857566  2.350047   
+          1  [\{'label': 'display', 'lat': 48.86284447210104{\ldots}  48.862844  2.349621   
+          2  [\{'label': 'display', 'lat': 48.8628, 'lng': 2{\ldots}  48.862800  2.352370   
+          
+            neighborhood postalCode          state                        id  
+          0          NaN      75004  Île-de-France  4bae719df964a5202cb33be3  
+          1          NaN      75001  Île-de-France  557f14fc498e61a8a94c720f  
+          2          NaN      75003  Île-de-France  560d03b5498eaea729b6bf10  
+\end{Verbatim}
+            
+    The request is properly saved into a dataframe. Let's check that we only
+recovered Chinese restaurants:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}274}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{dict}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{n}{df\PYZus{}food}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}274}]:} ['Chinese Restaurant',
+           'Noodle House',
+           'Cantonese Restaurant',
+           'Szechuan Restaurant',
+           'Tea Room']
+\end{Verbatim}
+            
+    We are only interested in restaurants, we'll remove the 'Tea Room'
+category from our selections and add other types of Chinese restaurants.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}321}]:} \PY{c+c1}{\PYZsh{} Targeting the categories that are Chinese restaurants.}
+          \PY{n}{chinese\PYZus{}restaurant\PYZus{}categories} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chinese Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noodle House}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cantonese Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Szechuan Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shanxi Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dim Sum Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Filtering tennis\PYZhy{}related venues to keep only the Chinese restaurants}
+          \PY{n}{df\PYZus{}food} \PY{o}{=} \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}food}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{chinese\PYZus{}restaurant\PYZus{}categories}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    We will now recover the ratings for the restaurants by exploring each of
+those venue:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}300}]:} \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}299}]:} \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{p}{(}\PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{venue\PYZus{}id} \PY{o}{=} \PY{n}{dataframe\PYZus{}filtered}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{venue\PYZus{}id}\PY{p}{,} \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{VERSION}\PY{p}{)}
+                  \PY{n}{result} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} Maximum of 1 query per second}
+                  \PY{k}{try}\PY{p}{:}
+                      \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{k}{except}\PY{p}{:}
+                      \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    To rate a neighborhood we want to use the average score of the 3 best
+nearby restaurants.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}331}]:} \PY{c+c1}{\PYZsh{} Sorting the restaurants by rating}
+          \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+          
+          \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}331}]:}                         name          categories  \textbackslash{}
+          2  Trois Fois plus de Piment  Chinese Restaurant   
+          1  Raviolis Chinois Nord-Est  Chinese Restaurant   
+          4                  Chez Shen  Chinese Restaurant   
+          3          Boutique yam'Tcha  Chinese Restaurant   
+          5                  Chez Vong  Chinese Restaurant   
+          
+                                    address  cc   city country   crossStreet  distance  \textbackslash{}
+          2            Rue Saint-Martin 184  FR  Paris  France  Rue aux Ours       691   
+          1             115 rue Saint-Denis  FR  Paris  France           NaN       707   
+          4                 39 rue au Maire  FR  Paris  France           NaN       964   
+          3                    4 rue Sauval  FR  Paris  France           NaN       876   
+          5  10 rue de la Grande-Truanderie  FR  Paris  France           NaN       707   
+          
+                                              formattedAddress  \textbackslash{}
+          2  [Rue Saint-Martin 184 (Rue aux Ours), 75003 Pa{\ldots}   
+          1         [115 rue Saint-Denis, 75001 Paris, France]   
+          4             [39 rue au Maire, 75003 Paris, France]   
+          3                [4 rue Sauval, 75001 Paris, France]   
+          5  [10 rue de la Grande-Truanderie, 75001 Paris, {\ldots}   
+          
+                                                labeledLatLngs        lat       lng  \textbackslash{}
+          2  [\{'label': 'display', 'lat': 48.8628, 'lng': 2{\ldots}  48.862800  2.352370   
+          1  [\{'label': 'display', 'lat': 48.86284447210104{\ldots}  48.862844  2.349621   
+          4  [\{'label': 'display', 'lat': 48.86485050214374{\ldots}  48.864851  2.355559   
+          3  [\{'label': 'display', 'lat': 48.8617098431057,{\ldots}  48.861710  2.342380   
+          5  [\{'label': 'display', 'lat': 48.86281389498094{\ldots}  48.862814  2.349376   
+          
+            neighborhood postalCode          state                        id rating  
+          2          NaN      75003  Île-de-France  560d03b5498eaea729b6bf10    9.1  
+          1          NaN      75001  Île-de-France  557f14fc498e61a8a94c720f    8.8  
+          4          NaN      75003  Île-de-France  4b3f52dbf964a52094a525e3    8.7  
+          3          NaN      75001  Île-de-France  548884fc498e7a7ca55edf84    8.6  
+          5          NaN      75001  Île-de-France  4adcda11f964a520e73521e3    7.8  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}334}]:} \PY{n}{avg\PYZus{}3\PYZus{}best} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{df\PYZus{}food}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{avg\PYZus{}3\PYZus{}best}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}334}]:} 8.5
+\end{Verbatim}
+            
+    We now will be able to generalize this process and adapt it to calculate
+a restaurant score for each neighborhood. We will see more in
+\emph{Scoring} section.
+
+    \paragraph{Exploring the nearby movie
+theatres}\label{exploring-the-nearby-movie-theatres}
+
+In this section we want to check if there is a movie theatre in walking
+distance around a given position. Our goal is to determine if there is a
+movie theatre, the rating of the venue does not matter.
+
+This subsection is pretty similar to the first part of the previous
+subsection.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}789}]:} \PY{c+c1}{\PYZsh{} Defining API call parameters}
+          \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{3000}
+          \PY{n}{LIMIT} \PY{o}{=} \PY{l+m+mi}{50} \PY{c+c1}{\PYZsh{} max is 50}
+          \PY{n}{latitude} \PY{o}{=} \PY{n}{paris\PYZus{}latitude}
+          \PY{n}{longitude} \PY{o}{=} \PY{n}{paris\PYZus{}longitude}
+          \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cinema or Movie Theatre}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{c+c1}{\PYZsh{} Generating API call URL}
+          \PY{n}{url\PYZus{}movie} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/explore?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}time=any\PYZam{}day=any}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+          
+          \PY{n}{url\PYZus{}movie}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}789}]:} 'https://api.foursquare.com/v2/venues/explore?client\_id=PM5S4QXIE2V3AAMPJTXJ2WDDA1X5SYDHNXWEMFRAOK45XKTY\&client\_secret=EUQS3K3GPO04OBCAVT55YRRVQCRZHEQX3BEY0GHIEN45N4EX\&ll=48.8566101,2.3514992\&v=20181118\&query=Cinema or Movie Theatre\&radius=3000\&limit=50\&time=any\&day=any'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}708}]:} \PY{c+c1}{\PYZsh{} API call with the FourSquare API}
+          \PY{n}{results\PYZus{}movie} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url\PYZus{}movie}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}784}]:} \PY{c+c1}{\PYZsh{} Extracting the relevant part of the response and inserting it into a dataframe}
+          \PY{n}{df\PYZus{}movie} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{results\PYZus{}movie}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{items}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Trimming unnecessary columns}
+          \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{df\PYZus{}movie} \PY{o}{=} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Recovering the category of the venue}
+          \PY{n}{df\PYZus{}movie}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Cleaning column names}
+          \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Displaying the results}
+          \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}784}]:}                                name           categories  \textbackslash{}
+          0  La Filmothèque du Quartier Latin  Indie Movie Theater   
+          1                      Grand Action  Indie Movie Theater   
+          2                  Forum des Images        Movie Theater   
+          3                      Le Grand Rex  Indie Movie Theater   
+          4               Max Linder Panorama  Indie Movie Theater   
+          
+                               address  cc   city country             crossStreet  \textbackslash{}
+          0          9 rue Champollion  FR  Paris  France                     NaN   
+          1           5 rue des Écoles  FR  Paris  France                     NaN   
+          2           Forum des Halles  FR  Paris  France         2 rue du Cinéma   
+          3         1 rue Poissonnière  FR  Paris  France  Boulevard des Italiens   
+          4  24 boulevard Poissonnière  FR  Paris  France                     NaN   
+          
+             distance                                   formattedAddress  \textbackslash{}
+          0      1017           [9 rue Champollion, 75005 Paris, France]   
+          1      1003            [5 rue des Écoles, 75005 Paris, France]   
+          2       797  [Forum des Halles (2 rue du Cinéma), 75001 Par{\ldots}   
+          3      1568  [1 rue Poissonnière (Boulevard des Italiens), {\ldots}   
+          4      1727   [24 boulevard Poissonnière, 75009 Paris, France]   
+          
+                                                labeledLatLngs        lat       lng  \textbackslash{}
+          0  [\{'label': 'display', 'lat': 48.84956850411322{\ldots}  48.849569  2.342639   
+          1  [\{'label': 'display', 'lat': 48.84761412154862{\ldots}  48.847614  2.352291   
+          2  [\{'label': 'display', 'lat': 48.86237333570815{\ldots}  48.862373  2.345042   
+          3  [\{'label': 'display', 'lat': 48.87047010660981{\ldots}  48.870470  2.347641   
+          4  [\{'label': 'display', 'lat': 48.8714865267816,{\ldots}  48.871487  2.344768   
+          
+                      neighborhood postalCode          state                        id  
+          0                    NaN      75005  Île-de-France  4bc0790f4cdfc9b6b4de9221  
+          1                    NaN      75005  Île-de-France  4b8a75d1f964a520a96d32e3  
+          2                    NaN      75001  Île-de-France  4adcda15f964a520b83721e3  
+          3  Bonne-Nouvelle, Paris      75002  Île-de-France  4adcda15f964a520b03721e3  
+          4                    NaN      75009  Île-de-France  4b0ec8cdf964a520fb5a23e3  
+\end{Verbatim}
+            
+    We can see FourSquare has a lot of data on the movie theatres in Paris
+since it gives us as many indie movie theatres as Google Maps would do.
+We can assume that no neighborhood will be impacted by missing data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}785}]:} \PY{c+c1}{\PYZsh{} Identifying categories}
+          \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{dict}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{n}{df\PYZus{}movie}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}785}]:} ['Indie Movie Theater', 'Movie Theater', 'Multiplex']
+\end{Verbatim}
+            
+    In our case study, Jean-Philippe is mostly interested by the mainstream
+movies and he enjoys watching them on huge screens with a state of the
+art sound system. We can ditch the indie movie theaters from our
+datasets.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}787}]:} \PY{c+c1}{\PYZsh{} Targeting the categories that are actually movie theatres}
+          \PY{n}{movie\PYZus{}theatre\PYZus{}categories} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Movie Theater}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Multiplex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Filtering tennis\PYZhy{}related venues to keep only the Chinese restaurants}
+          \PY{n}{df\PYZus{}movie} \PY{o}{=} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}movie}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{movie\PYZus{}theatre\PYZus{}categories}\PY{p}{)}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Displaying the results}
+          \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}787}]:}                               name     categories                    address  \textbackslash{}
+          2                 Forum des Images  Movie Theater           Forum des Halles   
+          8                    MK2 Beaubourg  Movie Theater           50 rue Rambuteau   
+          12        UGC Ciné Cité Les Halles      Multiplex      7 place de la Rotonde   
+          17  Gaumont Opéra (côté Capucines)      Multiplex  2 boulevard des Capucines   
+          18                 Les 5 Caumartin  Movie Theater       101 rue Saint-Lazare   
+          
+              cc   city country                 crossStreet  distance  \textbackslash{}
+          2   FR  Paris  France             2 rue du Cinéma       797   
+          8   FR  Paris  France                         NaN       543   
+          12  FR  Paris  France    Niveau -3 – Place Carrée       850   
+          17  FR  Paris  France  Rue de la Chaussée d'Antin      2074   
+          18  FR  Paris  France                         NaN      2735   
+          
+                                               formattedAddress  \textbackslash{}
+          2   [Forum des Halles (2 rue du Cinéma), 75001 Par{\ldots}   
+          8             [50 rue Rambuteau, 75003 Paris, France]   
+          12  [7 place de la Rotonde (Niveau -3 – Place Carr{\ldots}   
+          17  [2 boulevard des Capucines (Rue de la Chaussée{\ldots}   
+          18        [101 rue Saint-Lazare, 75009 Paris, France]   
+          
+                                                 labeledLatLngs        lat       lng  \textbackslash{}
+          2   [\{'label': 'display', 'lat': 48.86237333570815{\ldots}  48.862373  2.345042   
+          8   [\{'label': 'display', 'lat': 48.86145207327991{\ldots}  48.861452  2.352449   
+          12                                                NaN  48.862485  2.344084   
+          17  [\{'label': 'display', 'lat': 48.87115110606428{\ldots}  48.871151  2.333790   
+          18  [\{'label': 'display', 'lat': 48.87570979645938{\ldots}  48.875710  2.327995   
+          
+             neighborhood postalCode          state                        id  
+          2           NaN      75001  Île-de-France  4adcda15f964a520b83721e3  
+          8           NaN      75003  Île-de-France  4adcda15f964a520b53721e3  
+          12          NaN      75001  Île-de-France  4adcda15f964a520af3721e3  
+          17          NaN      75009  Île-de-France  4af5a443f964a520b3fa21e3  
+          18          NaN      75009  Île-de-France  4b85723ef964a5207a5e31e3  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}790}]:} \PY{c+c1}{\PYZsh{} Generate a map centered on Paris}
+          \PY{n}{movie\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Add the city hall as a red marker}
+          \PY{n}{folium}\PY{o}{.}\PY{n}{features}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+              \PY{p}{[}\PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{]}\PY{p}{,}
+              \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+              \PY{n}{popup}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{City Hall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+              \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.6}
+          \PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{movie\PYZus{}map}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Add movie theatres as blue spots on the map}
+          \PY{k}{for} \PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{lat}\PY{p}{,} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{lng}\PY{p}{,} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+              \PY{n}{folium}\PY{o}{.}\PY{n}{features}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                  \PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                  \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                  \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.6}
+                  \PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{movie\PYZus{}map}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Display map}
+          \PY{n}{movie\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}790}]:} <folium.folium.Map at 0x1a155c105f8>
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.1.3. Calculating Travel Time with the CityMapper
+API}\label{calculating-travel-time-with-the-citymapper-api}
+
+Documentation on the API can be found at:
+https://citymapper.3scale.net/docs We will use the API to calculate the
+travel time between potential homes and the future workplace. Since the
+CityMapper API only lets us do 50 hits per day and we have 80
+neighborhoods, we'll split the requests over 2 days and only request
+travel times at 8 AM when our client Jean-Philippe goes to work.
+
+The future workplace is set to be at the following address: \emph{5
+place de la Bourse, 75008 Paris}. The GPS coordinates are:
+\emph{48.868616, 2.341387}.
+
+Let's see how the API works.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} CityMapper API key}
+        \PY{n}{cm\PYZus{}api\PYZus{}key} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XXX}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} New Workplace Coordinates}
+        \PY{n}{end\PYZus{}lat} \PY{o}{=} \PY{l+m+mf}{48.868616}
+        \PY{n}{end\PYZus{}long} \PY{o}{=} \PY{l+m+mf}{2.341387}
+        
+        \PY{c+c1}{\PYZsh{} Potential Home Coordinates}
+        \PY{n}{start\PYZus{}lat} \PY{o}{=} \PY{l+m+mf}{48.862289}
+        \PY{n}{start\PYZus{}long} \PY{o}{=} \PY{l+m+mf}{2.344899}
+        
+        \PY{n}{start\PYZus{}coord} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{start\PYZus{}lat}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{2C}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{start\PYZus{}long}\PY{p}{)}
+        \PY{n}{end\PYZus{}coord} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{end\PYZus{}lat}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{2C}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{end\PYZus{}long}\PY{p}{)}
+        \PY{n}{time} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2018\PYZhy{}11\PYZhy{}06T08:00:00+0100}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} ISO\PYZhy{}8601 time format, see: http://support.sas.com/documentation/cdl/en/lrdict/64316/HTML/default/viewer.htm\PYZsh{}a003169814.htm}
+        \PY{n}{time\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrival}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} Generation of the URL}
+        \PY{n}{url\PYZus{}cm} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://developer.citymapper.com/api/1/traveltime/?startcoord=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}endcoord=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}time=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}time\PYZus{}type=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}key=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+            \PY{n}{start\PYZus{}coord}\PY{p}{,} \PY{n}{end\PYZus{}coord}\PY{p}{,} \PY{n}{time}\PY{p}{,} \PY{n}{time\PYZus{}type}\PY{p}{,} \PY{n}{cm\PYZus{}api\PYZus{}key}\PY{p}{)}
+        \PY{n}{url\PYZus{}cm}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 'https://developer.citymapper.com/api/1/traveltime/?startcoord=48.862289\%2C2.344899\&endcoord=48.868616\%2C2.341387\&time=2018-11-06T08:00:00+0100\&time\_type=arrival\&key=711e1e122e07851802cf2f5fdf0a2dda'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} API call with the CityMapper API}
+        \PY{n}{results\PYZus{}cm} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url\PYZus{}cm}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+        \PY{n}{results\PYZus{}cm}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} \{'travel\_time\_minutes': 12\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Extracting the interesting value}
+         \PY{n}{results\PYZus{}cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time\PYZus{}minutes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 12
+\end{Verbatim}
+            
+    Now we know how to use the API syntax, we want to make API calls to
+calculate the travel time for all the neighborhoods.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{neighborhoods\PYZus{}cm} \PY{o}{=} \PY{n}{neighborhoods}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numero\PYZus{}quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrondissement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coordonees\PYZus{}centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    numero\_quartier  arrondissement                quartier   latitude  \textbackslash{}
+         0                1               1  St-Germain-l'Auxerrois  48.860650   
+         1                2               1                  Halles  48.862289   
+         2                3               1            Palais-Royal  48.864660   
+         
+            longitude                        coordonees\_centre  
+         0   2.334910   [48.86065013520992, 2.334910329280203]  
+         1   2.344899   [48.86228910809422, 2.344898858311021]  
+         2   2.336309  [48.86465997810258, 2.3363089189653086]  
+\end{Verbatim}
+            
+    In the next step we'll generate all the API requests and store them for
+execution later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Creation of the API requests}
+         \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{not\PYZhy{}requested\PYZhy{}yet}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time\PYZus{}request}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{to\PYZhy{}be\PYZhy{}filled}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if}\PY{p}{(}\PY{n}{neighborhoods\PYZus{}cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time\PYZus{}request}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{to\PYZhy{}be\PYZhy{}filled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{start\PYZus{}lat} \PY{o}{=} \PY{n}{neighborhoods\PYZus{}cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                 \PY{n}{start\PYZus{}long} \PY{o}{=} \PY{n}{neighborhoods\PYZus{}cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                 \PY{n}{start\PYZus{}coord} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{start\PYZus{}lat}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{2C}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{start\PYZus{}long}\PY{p}{)}
+                 \PY{n}{neighborhoods\PYZus{}cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time\PYZus{}request}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://developer.citymapper.com/api/1/traveltime/?startcoord=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}endcoord=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}time=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}time\PYZus{}type=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}key=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                     \PY{n}{start\PYZus{}coord}\PY{p}{,} \PY{n}{end\PYZus{}coord}\PY{p}{,} \PY{n}{time}\PY{p}{,} \PY{n}{time\PYZus{}type}\PY{p}{,} \PY{n}{cm\PYZus{}api\PYZus{}key}\PY{p}{)}
+         
+         \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}LoicBrissot\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}indexing.py:362: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  self.obj[key] = \_infer\_fill\_value(value)
+C:\textbackslash{}Users\textbackslash{}LoicBrissot\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}indexing.py:543: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  self.obj[item] = s
+C:\textbackslash{}Users\textbackslash{}LoicBrissot\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:11: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  \# This is added back by InteractiveShellApp.init\_path()
+C:\textbackslash{}Users\textbackslash{}LoicBrissot\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}IPython\textbackslash{}core\textbackslash{}interactiveshell.py:2963: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  exec(code\_obj, self.user\_global\_ns, self.user\_ns)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    numero\_quartier  arrondissement                quartier   latitude  \textbackslash{}
+         0                1               1  St-Germain-l'Auxerrois  48.860650   
+         1                2               1                  Halles  48.862289   
+         2                3               1            Palais-Royal  48.864660   
+         
+            longitude                        coordonees\_centre        travel\_time  \textbackslash{}
+         0   2.334910   [48.86065013520992, 2.334910329280203]  not-requested-yet   
+         1   2.344899   [48.86228910809422, 2.344898858311021]  not-requested-yet   
+         2   2.336309  [48.86465997810258, 2.3363089189653086]  not-requested-yet   
+         
+                                          travel\_time\_request  
+         0  https://developer.citymapper.com/api/1/travelt{\ldots}  
+         1  https://developer.citymapper.com/api/1/travelt{\ldots}  
+         2  https://developer.citymapper.com/api/1/travelt{\ldots}  
+\end{Verbatim}
+            
+    Since the daily limit of API calls is inferior to the total amount of
+API calls we need to make, we will have to: 1. Execute as many API calls
+as we can. 1. Store the results into a JSON file. 1. Wait another day.
+1. Retrieve the results from the JSON file. 1. If there are still API
+calls to make then go to step 1; else we can proceed to the next cell.
+
+I inserted a \emph{sleep} function between the API calls since the API
+was not able to handle calls in quick succession. There also might be a
+limit on how many calls per minute you can make.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Execution of the API requests for travel time}
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{n}{neighborhoods\PYZus{}cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{not\PYZhy{}requested\PYZhy{}yet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} We only execute API calls for values that have not been obtained yet}
+                 \PY{n}{api\PYZus{}result} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{neighborhoods\PYZus{}cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time\PYZus{}request}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{api\PYZus{}result}\PY{p}{:} \PY{c+c1}{\PYZsh{} If the API returned a valid answer then we can update the travel time in the dataframe}
+                     \PY{n}{neighborhoods\PYZus{}cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n}{api\PYZus{}result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time\PYZus{}minutes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{c+c1}{\PYZsh{} The CityMapper API had some trouble when the API calls where too close to each other}
+         
+         \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}    numero\_quartier  arrondissement                quartier   latitude  \textbackslash{}
+         0                1               1  St-Germain-l'Auxerrois  48.860650   
+         1                2               1                  Halles  48.862289   
+         
+            longitude              coordonees\_centre travel\_time  
+         0   2.334910  [48.8606501352, 2.3349103293]          12  
+         1   2.344899  [48.8622891081, 2.3448988583]          12  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} Saving the results from the API calls to a JSON file}
+         \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{to\PYZus{}json}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CityMapperAPI\PYZhy{}Travel\PYZhy{}Times.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Recovering the saved results from the JSON file}
+         \PY{n}{exists} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CityMapperAPI\PYZhy{}Travel\PYZhy{}Times.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{if} \PY{p}{(}\PY{n}{exists} \PY{o}{==} \PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+             \PY{n}{neighborhoods\PYZus{}cm} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}json}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CityMapperAPI\PYZhy{}Travel\PYZhy{}Times.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}    numero\_quartier  arrondissement                quartier   latitude  \textbackslash{}
+         0                1               1  St-Germain-l'Auxerrois  48.860650   
+         1                2               1                  Halles  48.862289   
+         
+            longitude              coordonees\_centre                  travel\_time  \textbackslash{}
+         0   2.334910  [48.8606501352, 2.3349103293]  \{'travel\_time\_minutes': 12\}   
+         1   2.344899  [48.8622891081, 2.3448988583]  \{'travel\_time\_minutes': 12\}   
+         
+                                          travel\_time\_request  
+         0  https://developer.citymapper.com/api/1/travelt{\ldots}  
+         1  https://developer.citymapper.com/api/1/travelt{\ldots}  
+\end{Verbatim}
+            
+    After two days of execution, we gathered all the travel times. Let's see
+what the data looks like:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time\PYZus{}request}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} This column is no longer needed}
+         \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{to\PYZus{}json}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CityMapperAPI\PYZhy{}Travel\PYZhy{}Times.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{neighborhoods\PYZus{}cm}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}     numero\_quartier  arrondissement                quartier   latitude  \textbackslash{}
+         0                 1               1  St-Germain-l'Auxerrois  48.860650   
+         1                 2               1                  Halles  48.862289   
+         10               11               3                Archives  48.859192   
+         11               12               3            Sainte-Avoie  48.862557   
+         12               13               4             Saint-Merri  48.858521   
+         13               14               4           Saint-Gervais  48.855719   
+         14               15               4                 Arsenal  48.851585   
+         15               16               4              Notre-Dame  48.852896   
+         16               17               5            Saint-Victor  48.847664   
+         17               18               5      Jardin-des-Plantes  48.841940   
+         18               19               5            Val-de-Grace  48.841684   
+         19               20               5                Sorbonne  48.849045   
+         2                 3               1            Palais-Royal  48.864660   
+         20               21               6                 Monnaie  48.854384   
+         21               22               6                   Odeon  48.847801   
+         22               23               6   Notre-Dame-des-Champs  48.846428   
+         23               24               6  Saint-Germain-des-Prés  48.855289   
+         24               25               7    Saint-Thomas-d'Aquin  48.855263   
+         25               26               7               Invalides  48.858515   
+         26               27               7         Ecole-Militaire  48.850359   
+         27               28               7            Gros-Caillou  48.858300   
+         28               29               8          Champs-Elysées  48.867074   
+         29               30               8       Faubourg-du-Roule  48.874136   
+         3                 4               1           Place-Vendôme  48.867019   
+         30               31               8               Madeleine  48.871265   
+         31               32               8                  Europe  48.878148   
+         32               33               9           Saint-Georges  48.879934   
+         33               34               9        Chaussée-d'Antin  48.873547   
+         34               35               9     Faubourg-Montmartre  48.873935   
+         35               36               9            Rochechouart  48.879812   
+         ..              {\ldots}             {\ldots}                     {\ldots}        {\ldots}   
+         54               55              14         Petit-Montrouge  48.826653   
+         55               56              14               Plaisance  48.830317   
+         56               57              15           Saint-Lambert  48.834294   
+         57               58              15                  Necker  48.842711   
+         58               59              15                Grenelle  48.850172   
+         59               60              15             Javel 15Art  48.839060   
+         6                 7               2                    Mail  48.868008   
+         60               61              16                 Auteuil  48.850622   
+         61               62              16                  Muette  48.863275   
+         62               63              16          Porte-Dauphine  48.871766   
+         63               64              16                Chaillot  48.868434   
+         64               65              17                  Ternes  48.881178   
+         65               66              17      Plaine de Monceaux  48.885044   
+         66               67              17             Batignolles  48.888482   
+         67               68              17               Epinettes  48.894943   
+         68               69              18       Grandes-Carrières  48.892578   
+         69               70              18            Clignancourt  48.891668   
+         7                 8               2          Bonne-Nouvelle  48.867150   
+         70               71              18             Goutte-d'Or  48.892138   
+         71               72              18             La Chapelle  48.894012   
+         72               73              19                Villette  48.887661   
+         73               74              19         Pont-de-Flandre  48.895556   
+         74               75              19                Amérique  48.881638   
+         75               76              19                  Combat  48.878639   
+         76               77              20              Belleville  48.871531   
+         77               78              20           Saint-Fargeau  48.871035   
+         78               79              20           Père-Lachaise  48.863719   
+         79               80              20                Charonne  48.854760   
+         8                 9               3         Arts-et-Metiers  48.866470   
+         9                10               3          Enfants-Rouges  48.863887   
+         
+             longitude                    coordonees\_centre travel\_time  
+         0    2.334910        [48.8606501352, 2.3349103293]          12  
+         1    2.344899        [48.8622891081, 2.3448988583]          12  
+         10   2.363205        [48.8591924127, 2.3632050573]          21  
+         11   2.354852         [48.862557245, 2.3548515182]          11  
+         12   2.351667        [48.8585213723, 2.3516669671]          13  
+         13   2.358162        [48.8557186509, 2.3581623339]          17  
+         14   2.364768         [48.851585175, 2.3647679539]          21  
+         15   2.352775        [48.8528955862, 2.3527750121]          19  
+         16   2.354093        [48.8476636355, 2.3540931534]          25  
+         17   2.356894  [48.8419401934, 2.3568938896000002]          29  
+         18   2.343861         [48.841684288, 2.3438609263]          25  
+         19   2.345747        [48.8490447659, 2.3457466002]          23  
+         2    2.336309         [48.8646599781, 2.336308919]           9  
+         20   2.340035        [48.8543844036, 2.3400353711]          21  
+         21   2.336339   [48.847800629299996, 2.3363388276]          26  
+         22   2.327357         [48.846427594, 2.3273568782]          19  
+         23   2.333657          [48.85528872, 2.3336568681]          18  
+         24   2.325588        [48.8552632694, 2.3255876526]          17  
+         25   2.316445        [48.8585149661, 2.3164447403]          20  
+         26   2.311031        [48.8503592615, 2.3110309363]          27  
+         27   2.301542        [48.8582999039, 2.3015415557]          22  
+         28   2.308652        [48.8670744922, 2.3086516847]          21  
+         29   2.304119        [48.8741355756, 2.3041188097]          19  
+         3    2.328582        [48.8670185906, 2.3285816649]          14  
+         30   2.320053         [48.871265493, 2.3200530286]          20  
+         31   2.317175        [48.8781476759, 2.3171746113]          16  
+         32   2.332850        [48.8799343388, 2.3328501966]          19  
+         33   2.332269        [48.8735473802, 2.3322688689]          12  
+         34   2.343253        [48.8739346918, 2.3432525795]           9  
+         35   2.344861         [48.8798119198, 2.344861291]          17  
+         ..        {\ldots}                                  {\ldots}         {\ldots}  
+         54   2.326437  [48.8266526255, 2.3264369992000002]          28  
+         55   2.315305        [48.8303170426, 2.3153049316]          29  
+         56   2.296920        [48.8342936284, 2.2969199744]          35  
+         57   2.310777        [48.8427112503, 2.3107774536]          28  
+         58   2.291853        [48.8501716555, 2.2918526427]          23  
+         59   2.278076        [48.8390604011, 2.2780763469]          29  
+         6    2.344699        [48.8680083374, 2.3446991274]           3  
+         60   2.252277        [48.8506223427, 2.2522769075]          38  
+         61   2.259936        [48.8632745438, 2.2599358317]          42  
+         62   2.271918        [48.8717656343, 2.2719177405]          28  
+         63   2.291679  [48.8684336145, 2.2916790427000002]          24  
+         64   2.289964        [48.8811775503, 2.2899637381]          28  
+         65   2.302910        [48.8850436914, 2.3029098247]          18  
+         66   2.313856         [48.8884815139, 2.313856169]          27  
+         67   2.321119        [48.8949426538, 2.3211187437]          27  
+         68   2.334363        [48.8925777711, 2.3343630899]          27  
+         69   2.345979        [48.8916675911, 2.3459787546]          22  
+         7    2.350080        [48.8671501183, 2.3500801904]           8  
+         70   2.355536        [48.8921381876, 2.3555361633]          26  
+         71   2.364387         [48.8940121696, 2.364386779]          33  
+         72   2.374468        [48.8876610888, 2.3744682121]          21  
+         73   2.384777        [48.8955557746, 2.3847772293]          25  
+         74   2.395440  [48.8816381673, 2.3954401666000003]          29  
+         75   2.380127        [48.8786390757, 2.3801272818]          28  
+         76   2.387549  [48.8715312006, 2.3875492398000002]          25  
+         77   2.406172        [48.8710347391, 2.4061715302]          24  
+         78   2.395273         [48.863719484, 2.3952728208]          20  
+         79   2.407430   [48.854760283, 2.4074303282000002]          29  
+         8    2.357083        [48.8664702895, 2.3570831311]           9  
+         9    2.363123          [48.863887392, 2.363123301]          13  
+         
+         [80 rows x 7 columns]
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{3.2. Scoring}\label{scoring}
+
+This subsection explains the formula for the different alpha parameters
+and the scores.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}933}]:} \PY{n}{neighborhoods\PYZus{}scores} \PY{o}{=} \PY{n}{neighborhoods}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numero\PYZus{}quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrondissement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sport\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{culture\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TBD}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}935}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}935}]:}                  quartier  numero\_quartier  arrondissement travel\_score  \textbackslash{}
+          0  St-Germain-l'Auxerrois                1               1          TBD   
+          1                  Halles                2               1          TBD   
+          
+            sport\_score food\_score culture\_score final\_score  
+          0         TBD        TBD           TBD         TBD  
+          1         TBD        TBD           TBD         TBD  
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.2.1. Travel Score}\label{travel-score}
+
+The travel score will be close or equal to 1 for a low travel time and
+the score will drop to 0 and below for travel times above 1h.
+
+\begin{equation}
+travelScore = \begin{cases} 1 & \quad \text{if travelTime ≤ 20mn} \\ 1,5-travelTime/40 & \quad \text{if travelTime > 20mn} \end{cases}
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Calculating the travel score}
+        \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{travel\PYZus{}time} \PY{o}{=} \PY{n}{neighborhoods\PYZus{}cm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{k}{if} \PY{p}{(}\PY{n}{travel\PYZus{}time} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+                \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{o}{\PYZhy{}} \PY{n}{travel\PYZus{}time}\PY{o}{/}\PY{l+m+mi}{40}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}862}]:} \PY{c+c1}{\PYZsh{} Displaying the head of the dataframe}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numero\PYZus{}quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}862}]:}          quartier  numero\_quartier travel\_score
+          75         Combat               76          0.8
+          76     Belleville               77        0.875
+          77  Saint-Fargeau               78          0.9
+          78  Père-Lachaise               79            1
+          79       Charonne               80        0.775
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.2.2. Sport Score}\label{sport-score}
+
+The sport score will be equal to 1 if there is a tennis court less than
+1 km away from home and linearly decrease to 0 if the court is farther
+than 2.5 km away
+
+\begin{equation}
+sportScore =
+\begin{cases} 1 & \quad \text{if distance ≤ 1000}
+\\ 1 - \frac{distance - 1000}{1500} & \quad \text{if 1000 ≤ distance ≤ 2000}
+\\ 0 & \quad \text{if distance ≥ 2500}
+\end{cases}
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Calculating the travel score}
+        \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tennis\PYZus{}distance} \PY{o}{=} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tennis\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{k}{if} \PY{p}{(}\PY{n}{tennis\PYZus{}distance} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+                \PY{n}{res} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{elif} \PY{p}{(}\PY{n}{tennis\PYZus{}distance} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2500}\PY{p}{)}\PY{p}{:}
+                \PY{n}{res} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{res} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{tennis\PYZus{}distance} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1000}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{1500}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sport\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{res}
+            \PY{c+c1}{\PYZsh{} print(\PYZsq{}distance = \PYZob{}\PYZcb{}, score=\PYZob{}\PYZcb{}\PYZsq{}.format(tennis\PYZus{}distance, res))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}860}]:} \PY{c+c1}{\PYZsh{} Displaying the head of the dataframe}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numero\PYZus{}quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sport\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}860}]:}                  quartier  numero\_quartier sport\_score
+          0  St-Germain-l'Auxerrois                1        0.66
+          1                  Halles                2        0.42
+          2            Palais-Royal                3        0.36
+          3           Place-Vendôme                4        0.16
+          4                 Gaillon                5        0.02
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.2.3. Restaurant Score}\label{restaurant-score}
+
+The restaurant score is the average of the ratings of the best Chinese
+restaurants in a walking radisu around Jean-Philippe's future home. We
+will take the average of the three best Chinese restaurants in a radius
+of 1 km around the location we want to rate.
+
+\begin{equation}
+restaurantScore = \frac{1}{3}\left( \max{ \sum_{i=1}^{N} restaurantRating} \right) 
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}621}]:} \PY{c+c1}{\PYZsh{} Creating two variables to store the results of the API calls}
+          \PY{c+c1}{\PYZsh{} 80 is the amount of neighborhoods we want to explore. 50 is the max amount of venues given by the API}
+          \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{80}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} Each element is the dataframe containing the filtered result of the request on a neighborhood}
+          \PY{n}{fs\PYZus{}api\PYZus{}restaurants} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{[}\PY{p}{]} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{80}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} Each element is the list containing the filtered result of the request on a restaurant}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}839}]:} \PY{c+c1}{\PYZsh{} General API call parameters}
+          \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{1000}
+          \PY{n}{LIMIT} \PY{o}{=} \PY{l+m+mi}{50} \PY{c+c1}{\PYZsh{} max is 50}
+          \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chinese Restaurant}\PY{l+s+s1}{\PYZsq{}}
+              
+          \PY{c+c1}{\PYZsh{}\PYZsh{} Iterating on all the neighborhoods}
+          \PY{c+c1}{\PYZsh{}for index, row in neighborhoods.iterrows():}
+          \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{80}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Generating and calling the FourSquare API}
+              \PY{n}{latitude} \PY{o}{=} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{longitude} \PY{o}{=} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{url\PYZus{}neighborhood} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/explore?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}time=any\PYZam{}day=any}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                  \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+              \PY{n}{results\PYZus{}food} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url\PYZus{}neighborhood}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{API request parameters: i=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{Neighborhood = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{latitude=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{  |  longitude=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{quartier}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{)}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} Extracting and flattening the relevant part of the JSON}
+              \PY{n}{dataframe} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{results\PYZus{}food}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{items}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              
+              \PY{k}{if} \PY{p}{(}\PY{n}{dataframe}\PY{o}{.}\PY{n}{empty}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} If there are no relevant restaurants in the neighborhood then there will be no results and the dataframe will be ampty}
+                  \PY{n}{food\PYZus{}score}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{}\PYZsh{} Cleaning the API result to obtain a usable list of the Chinese restaurants}
+                  \PY{c+c1}{\PYZsh{} Filtering the columns}
+                  \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{dataframe}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n}{dataframe}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+                  \PY{c+c1}{\PYZsh{} Filtering the category for each row}
+                  \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Cleaning column names}
+                  \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+                  \PY{c+c1}{\PYZsh{} Filtering Chinese\PYZhy{}related venues to keep only the Chinese restaurants}
+                  \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{chinese\PYZus{}restaurant\PYZus{}categories}\PY{p}{)}\PY{p}{]}
+                  \PY{c+c1}{\PYZsh{} Cleaning the index}
+                  \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{}\PYZsh{} Recovering the ratings of all the Chinese restaurants found in the neighborhood}
+                  \PY{n}{quota\PYZus{}error}\PY{o}{=} \PY{k+kc}{False} \PY{c+c1}{\PYZsh{} Exit variable for the loop in case we go over the API quota}
+                  \PY{n}{restaurant\PYZus{}count} \PY{o}{=} \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                  \PY{c+c1}{\PYZsh{}print(\PYZsq{}\PYZbs{}tRestaurant count = \PYZob{}\PYZcb{}\PYZsq{}.format(restaurant\PYZus{}count))}
+                  \PY{c+c1}{\PYZsh{}print(\PYZsq{}\PYZbs{}tRestaurant ratings = \PYZsq{}, end=\PYZsq{}\PYZsq{})}
+                  \PY{k}{for} \PY{n}{jndex} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{restaurant\PYZus{}count}\PY{p}{)}\PY{p}{:}     
+                      \PY{n}{venue\PYZus{}id} \PY{o}{=} \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{jndex}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                      \PY{n}{url\PYZus{}restaurant} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{venue\PYZus{}id}\PY{p}{,} \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{VERSION}\PY{p}{)}
+                      \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} Maximum of 1 query per second}
+                      \PY{n}{result} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url\PYZus{}restaurant}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+          
+                      \PY{n}{fs\PYZus{}api\PYZus{}restaurants}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{[}\PY{n}{jndex}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} Saving the result of the request}
+          
+                      \PY{k}{if}\PY{p}{(}\PY{n+nb}{bool}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} Check to see if we haven\PYZsq{}t exceeded our API quota yet. When the quota is exceeded the \PYZsq{}response\PYZsq{} is empty.}
+                          \PY{k}{try}\PY{p}{:}
+                              \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{jndex}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                          \PY{k}{except}\PY{p}{:}
+                              \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{jndex}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+          
+                          \PY{c+c1}{\PYZsh{}print(\PYZsq{}\PYZob{}\PYZcb{} | \PYZsq{}.format(fs\PYZus{}api\PYZus{}neighborhoods[index].loc[jndex, \PYZsq{}rating\PYZsq{}]), end=\PYZsq{}\PYZsq{})}
+          
+                      \PY{k}{else}\PY{p}{:} \PY{c+c1}{\PYZsh{} If we exceeded the API call quota then we get out and stop the operations.}
+                          \PY{n}{quota\PYZus{}error} \PY{o}{=} \PY{k+kc}{True}
+                          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/!}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{ ERROR : API quota exceeded.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          \PY{k}{break}
+                  \PY{k}{if} \PY{p}{(}\PY{n}{quota\PYZus{}error}\PY{p}{)}\PY{p}{:} \PY{k}{break}
+          
+                  \PY{c+c1}{\PYZsh{} Calculating the score}
+                  \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} Sorting the restaurants by rating}
+                  \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} Resetting the index}
+                  \PY{k}{if} \PY{p}{(}\PY{n}{restaurant\PYZus{}count} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{food\PYZus{}score}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} 
+                                                 \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} 
+                                                 \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{k}{elif} \PY{p}{(}\PY{n}{restaurant\PYZus{}count} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{food\PYZus{}score}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} 
+                                                 \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{k}{elif} \PY{p}{(}\PY{n}{restaurant\PYZus{}count} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{food\PYZus{}score}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n}{fs\PYZus{}api\PYZus{}neighborhoods}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{k}{else} \PY{p}{:}
+                      \PY{n}{food\PYZus{}score}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                      
+              \PY{c+c1}{\PYZsh{}print(\PYZsq{}\PYZbs{}n\PYZbs{}tScore = \PYZob{}\PYZcb{}\PYZsq{}.format(food\PYZus{}score[index]))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+API request parameters: i=65 	Neighborhood = Plaine de Monceaux 	latitude=48.88504369140326  |  longitude=2.302909824651909
+	Restaurant count = 6
+	Restaurant ratings = 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 6.5 | 
+	Score = 2.2
+API request parameters: i=66 	Neighborhood = Batignolles 	latitude=48.88848151392056  |  longitude=2.313856169006357
+	Restaurant count = 6
+	Restaurant ratings = 8.0 | 5.6 | 0.0 | 0.0 | 0.0 | 6.5 | 
+	Score = 6.7
+API request parameters: i=67 	Neighborhood = Epinettes 	latitude=48.894942653790814  |  longitude=2.321118743705155
+	Restaurant count = 3
+	Restaurant ratings = 5.6 | 0.0 | 0.0 | 
+	Score = 1.9
+API request parameters: i=68 	Neighborhood = Grandes-Carrières 	latitude=48.89257777114594  |  longitude=2.3343630899130843
+	Restaurant count = 5
+	Restaurant ratings = 7.8 | 8.0 | 6.4 | 0.0 | 0.0 | 
+	Score = 7.4
+API request parameters: i=69 	Neighborhood = Clignancourt 	latitude=48.891667591067524  |  longitude=2.345978754593185
+	Restaurant count = 3
+	Restaurant ratings = 0.0 | 0.0 | 0.0 | 
+	Score = 0.0
+API request parameters: i=70 	Neighborhood = Goutte-d'Or 	latitude=48.892138187602434  |  longitude=2.3555361632962755
+	Restaurant count = 4
+	Restaurant ratings = 5.9 | 0.0 | 0.0 | 0.0 | 
+	Score = 2.0
+API request parameters: i=71 	Neighborhood = La Chapelle 	latitude=48.89401216958224  |  longitude=2.3643867790293243
+	Restaurant count = 1
+	Restaurant ratings = 5.9 | 
+	Score = 5.9
+API request parameters: i=72 	Neighborhood = Villette 	latitude=48.88766108880354  |  longitude=2.374468212125665
+	Restaurant count = 6
+	Restaurant ratings = 8.0 | 6.1 | 0.0 | 0.0 | 0.0 | 0.0 | 
+	Score = 4.7
+API request parameters: i=73 	Neighborhood = Pont-de-Flandre 	latitude=48.89555577457163  |  longitude=2.3847772292702403
+	Restaurant count = 4
+	Restaurant ratings = 7.5 | 6.1 | 0.0 | 0.0 | 
+	Score = 4.5
+API request parameters: i=74 	Neighborhood = Amérique 	latitude=48.88163816729654  |  longitude=2.395440166623734
+	Restaurant count = 7
+	Restaurant ratings = 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 
+	Score = 0.0
+API request parameters: i=75 	Neighborhood = Combat 	latitude=48.878639075724834  |  longitude=2.380127281829294
+	Restaurant count = 16
+	Restaurant ratings = 8.6 | 8.4 | 8.9 | 8.0 | 7.5 | 7.3 | 6.5 | 6.2 | 6.4 | 6.3 | 6.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 
+	Score = 8.6
+API request parameters: i=76 	Neighborhood = Belleville 	latitude=48.87153120058619  |  longitude=2.3875492398498075
+	Restaurant count = 18
+	Restaurant ratings = 8.6 | 8.4 | 8.0 | 8.9 | 7.3 | 7.5 | 6.5 | 6.2 | 6.4 | 6.3 | 6.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 5.6 | 
+	Score = 8.6
+API request parameters: i=77 	Neighborhood = Saint-Fargeau 	latitude=48.871034739091286  |  longitude=2.4061715301510387
+	Restaurant count = 4
+	Restaurant ratings = 7.6 | 0.0 | 0.0 | 0.0 | 
+	Score = 2.5
+API request parameters: i=78 	Neighborhood = Père-Lachaise 	latitude=48.86371948395741  |  longitude=2.395272820760117
+	Restaurant count = 3
+	Restaurant ratings = 7.6 | 0.0 | 0.0 | 
+	Score = 2.5
+API request parameters: i=79 	Neighborhood = Charonne 	latitude=48.85476028303531  |  longitude=2.4074303282359697
+	Restaurant count = 3
+	Restaurant ratings = 0.0 | 0.0 | 4.8 | 
+	Score = 1.6
+End
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1002}]:} \PY{c+c1}{\PYZsh{} Saving the results into the result dataframe}
+           \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{food\PYZus{}score}\PY{o}{/}\PY{l+m+mi}{10}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1003}]:} \PY{c+c1}{\PYZsh{} Displaying the head of the dataframe}
+           \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numero\PYZus{}quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1003}]:}                  quartier  numero\_quartier  food\_score
+           0  St-Germain-l'Auxerrois                1        0.83
+           1                  Halles                2        0.89
+           2            Palais-Royal                3        0.85
+           3           Place-Vendôme                4        0.78
+           4                 Gaillon                5        0.80
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.2.4. Culture Score}\label{culture-score}
+
+The culture score values the accessibility to a movie theatre in walking
+distance.
+
+\begin{equation}
+cultureScore =
+\begin{cases} 1 & \quad \text{if there is a movie theatre with distance ≤ 1000}
+\\ 0 & \quad \text{else}
+\end{cases}
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}910}]:} \PY{c+c1}{\PYZsh{} Defining a movie\PYZus{}score variable to store scores for the 80 neighborhoods}
+          \PY{n}{movie\PYZus{}score} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{80}\PY{p}{)}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} General API call parameters}
+          \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{1000}
+          \PY{n}{LIMIT} \PY{o}{=} \PY{l+m+mi}{20} \PY{c+c1}{\PYZsh{} max is 50}
+          \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cinema or Movie Theatre}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}977}]:} \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{}\PYZsh{} Calling the FourSquare API}
+              \PY{c+c1}{\PYZsh{} Generating API call URL :}
+              \PY{n}{latitude} \PY{o}{=} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{longitude}\PY{o}{=} \PY{n}{neighborhoods}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{url\PYZus{}movie} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/explore?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}time=any\PYZam{}day=any}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                  \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} API call with the FourSquare API :}
+              \PY{n}{results\PYZus{}movie} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url\PYZus{}movie}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Maximum of 1 query per second}
+              \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} 
+              
+              \PY{c+c1}{\PYZsh{}\PYZsh{} Filtering the result}
+              \PY{c+c1}{\PYZsh{} Extracting the relevant part of the response and inserting it into a dataframe :}
+              \PY{n}{df\PYZus{}movie} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{results\PYZus{}movie}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{items}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              
+              \PY{k}{if} \PY{p}{(}\PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{empty}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} If there are no relevant venues in the neighborhood then there will be no results and the dataframe will be ampty}
+                  \PY{n}{movie\PYZus{}score}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{}\PYZsh{} Cleaning the API result to obtain a usable list of movie theatres}
+                  \PY{c+c1}{\PYZsh{} Trimming unnecessary columns :}
+                  \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{df\PYZus{}movie} \PY{o}{=} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+                  \PY{c+c1}{\PYZsh{} Recovering the category of the venue :}
+                  \PY{n}{df\PYZus{}movie}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Cleaning column names :}
+                  \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+                  \PY{c+c1}{\PYZsh{} Filtering movie\PYZhy{}related venues to keep only the mainstream movie theatres}
+                  \PY{n}{df\PYZus{}movie} \PY{o}{=} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}movie}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{movie\PYZus{}theatre\PYZus{}categories}\PY{p}{)}\PY{p}{]}
+                  \PY{c+c1}{\PYZsh{} Resetting the index :}
+                  \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{}\PYZsh{} Calculating the score :}
+                  \PY{n}{movie\PYZus{}score}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0} \PY{k}{if} \PY{n}{df\PYZus{}movie}\PY{o}{.}\PY{n}{empty} \PY{k}{else} \PY{l+m+mi}{1}\PY{p}{)}
+                  
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}    print(\PYZdq{}Neighborhood ID = \PYZob{}:2d\PYZcb{} \PYZbs{}t Neighborhood Movie Score = \PYZob{}\PYZcb{} \PYZbs{}t Neighboorhood Name = \PYZob{}:25s\PYZcb{}\PYZdq{}.format(}
+          \PY{l+s+sd}{        index, movie\PYZus{}score[index], neighborhoods.loc[index,\PYZsq{}quartier\PYZsq{}]), }
+          \PY{l+s+sd}{          end=\PYZsq{}\PYZsq{})}
+          \PY{l+s+sd}{    if movie\PYZus{}score[index] != 0 :}
+          \PY{l+s+sd}{        print(\PYZdq{}\PYZbs{}t Nearest Movie Theatre = \PYZob{}\PYZcb{}\PYZdq{}.format(df\PYZus{}movie[\PYZsq{}name\PYZsq{}][0]))}
+          \PY{l+s+sd}{    else:}
+          \PY{l+s+sd}{        print(\PYZdq{}\PYZbs{}t No Nearest Movie Theatre.\PYZdq{})\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}977}]:} '    print("Neighborhood ID = \{:2d\} \textbackslash{}t Neighborhood Movie Score = \{\} \textbackslash{}t Neighboorhood Name = \{:25s\}".format(\textbackslash{}n        index, movie\_score[index], neighborhoods.loc[index,\textbackslash{}'quartier\textbackslash{}']), \textbackslash{}n          end=\textbackslash{}'\textbackslash{}')\textbackslash{}n    if movie\_score[index] != 0 :\textbackslash{}n        print("\textbackslash{}t Nearest Movie Theatre = \{\}".format(df\_movie[\textbackslash{}'name\textbackslash{}'][0]))\textbackslash{}n    else:\textbackslash{}n        print("\textbackslash{}t No Nearest Movie Theatre.")'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}978}]:} \PY{c+c1}{\PYZsh{} Saving the results into the result dataframe}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{movie\PYZus{}score}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}979}]:} \PY{c+c1}{\PYZsh{} Counting neighborhoods wih a movie score equal to 0}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}979}]:} 17
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}980}]:} \PY{c+c1}{\PYZsh{} Displaying the head of the dataframe}
+          \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numero\PYZus{}quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}980}]:}                  quartier  numero\_quartier  movie\_score
+          0  St-Germain-l'Auxerrois                1            1
+          1                  Halles                2            1
+          2            Palais-Royal                3            1
+          3           Place-Vendôme                4            1
+          4                 Gaillon                5            1
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{3.2.5. Final Score}\label{final-score}
+
+To calculate the final score we will use the following formula:
+
+\begin{equation}
+neighborhoodScore = \alpha_1*travelScore + \alpha_2*sportScore + \alpha_3*restaurantScore + \alpha_4*cultureScore
+\end{equation}
+
+and the associated alpha coefficients:
+
+\begin{equation}
+\begin{cases}
+   \alpha_1 = 0.4 & \quad \text{the coefficient for the travel score}
+\\ \alpha_2 = 0.3 & \quad \text{the coefficient for the sport score}
+\\ \alpha_3 = 0.1 & \quad \text{the coefficient for the restaurant score}
+\\ \alpha_5 = 0.2 & \quad \text{the coefficient for the culture score}
+\end{cases}
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}999}]:} \PY{n}{alpha} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sport}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,}
+                  \PY{p}{\PYZcb{}}
+          \PY{n}{alpha}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}999}]:} \{'travel': 0.4, 'sport': 0.3, 'food': 0.1, 'movie': 0.2\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1004}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{alpha}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}
+                                                  \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sport\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{alpha}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sport}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} 
+                                                  \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{alpha}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} 
+                                                  \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{alpha}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1006}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1006}]:}                  quartier  numero\_quartier  arrondissement travel\_score  \textbackslash{}
+           0  St-Germain-l'Auxerrois                1               1            1   
+           1                  Halles                2               1            1   
+           2            Palais-Royal                3               1            1   
+           3           Place-Vendôme                4               1            1   
+           4                 Gaillon                5               2            1   
+           5                Vivienne                6               2            1   
+           6                    Mail                7               2            1   
+           7          Bonne-Nouvelle                8               2            1   
+           8         Arts-et-Metiers                9               3            1   
+           9          Enfants-Rouges               10               3            1   
+           
+             sport\_score  food\_score  movie\_score final\_score  
+           0        0.66        0.83            1       0.881  
+           1        0.42        0.89            1       0.815  
+           2        0.36        0.85            1       0.793  
+           3        0.16        0.78            1       0.726  
+           4        0.02        0.80            1       0.686  
+           5        0.01        0.84            1       0.687  
+           6        0.03        0.89            1       0.698  
+           7           0        0.89            1       0.689  
+           8           0        0.89            1       0.689  
+           9        0.92        0.89            1       0.965  
+\end{Verbatim}
+            
+    \subsection{4. Results and Discussion}\label{results-and-discussion}
+
+Let's visualize the various scores for all the neighborhoods.
+
+    \subsubsection{4.1. Travel Score}\label{travel-score}
+
+Overall the travel scores are pretty good. We can attribute this to the
+fact that Jean-Philippe's new workplace is located in an area that is
+easy to reach from most of Paris. The results would be different if the
+conditions were harder to meet.
+
+In a further version of this project I would like to try to meet the
+expections for 2 persons. If Jean-Philippe was looking to move in with
+his girlfriend Anastasia then the new appartment would need to meet
+requirements for two persons and the travel scores would be much more
+heterogeneous.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}871}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{travel\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add to x\PYZhy{}label to the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Travel score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add y\PYZhy{}label to the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Travel score for the Paris neighborhoods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add title to the plot}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_100_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.2. Sport Score}\label{sport-score}
+
+The sport score seems to be quite effective at discriminating
+neighborhoods relatively to their closeness to a tennis court. It
+appears we have three categories: - Neighborhoods with good access to
+one or more tennis courts. - Neighborhoods with poor or average access
+to a tennis court. - Neighborhoods with a terrible acess to a tennis
+court.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}869}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sport\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add to x\PYZhy{}label to the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sport score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add y\PYZhy{}label to the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sport score for the Paris neighborhoods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add title to the plot}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_102_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.3. Restaurant Score}\label{restaurant-score}
+
+The restaurant score seems to separated into two homogeneous groups: the
+neighborhoods where there are more than 3 Chinese restaurants with
+average ratings, and the neighborhoods where there are too few
+restaurants. Those ratings do not seem to be a reliable differentiating
+factor to use. In a further version of this project we will need to
+upgrade the restaurant scoring formula.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}867}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add to x\PYZhy{}label to the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Restaurant score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add y\PYZhy{}label to the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Restaurant score for the Paris neighborhoods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add title to the plot}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_104_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.4. Culture Score}\label{culture-score}
+
+As expected, this score shows us that most neighborhoods are well
+covered by movie theatres.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}969}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add to x\PYZhy{}label to the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Culture score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add y\PYZhy{}label to the plot}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Culture score for the Paris neighborhoods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add title to the plot}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4.5. Final Score}\label{final-score}
+
+Overall the scores are pretty high, there are almost 30 neighborhoods
+with a rating above 0.8 and 8 with a rating above 0.95. The top scores
+are pretty close and are only differenciatd by the restaurant score.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1030}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1030}]:}                   quartier  numero\_quartier  arrondissement travel\_score  \textbackslash{}
+           23  Saint-Germain-des-Prés               24               6            1   
+           13           Saint-Gervais               14               4            1   
+           10                Archives               11               3        0.975   
+           22   Notre-Dame-des-Champs               23               6            1   
+           20                 Monnaie               21               6        0.975   
+           9           Enfants-Rouges               10               3            1   
+           14                 Arsenal               15               4        0.975   
+           49                    Gare               50              13        0.925   
+           19                Sorbonne               20               5        0.925   
+           24    Saint-Thomas-d'Aquin               25               7            1   
+           
+              sport\_score  food\_score  movie\_score final\_score  
+           23           1        0.81            1       0.981  
+           13           1        0.81            1       0.981  
+           10           1        0.88            1       0.978  
+           22           1        0.76            1       0.976  
+           20           1        0.82            1       0.972  
+           9         0.92        0.89            1       0.965  
+           14           1        0.64            1       0.954  
+           49           1        0.80            1        0.95  
+           19           1        0.77            1       0.947  
+           24        0.92        0.70            1       0.946  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1026}]:} \PY{n}{neighborhoods\PYZus{}scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+           
+           \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add to x\PYZhy{}label to the plot}
+           \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Final score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add y\PYZhy{}label to the plot}
+           \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Final score for the Paris neighborhoods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} add title to the plot}
+           
+           \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can take a look on the map to see where are the best neighborhoods to
+live in for Jean-Philippe:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1023}]:} \PY{c+c1}{\PYZsh{} Create a plain map centered on Paris}
+           \PY{n}{map\PYZus{}paris\PYZus{}score} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{paris\PYZus{}latitude}\PY{p}{,} \PY{n}{paris\PYZus{}longitude}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{800}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}
+           
+           \PY{n}{map\PYZus{}paris\PYZus{}score}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+               \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{n}{paris\PYZus{}neighborhoods\PYZus{}json}\PY{p}{,}
+               
+               \PY{n}{data}\PY{o}{=}\PY{n}{neighborhoods\PYZus{}scores}\PY{p}{,}
+               \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+               \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.l\PYZus{}qu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+               \PY{c+c1}{\PYZsh{} Color brewer palettes: ‘BuGn’, ‘BuPu’, ‘GnBu’, ‘OrRd’, ‘PuBu’, ‘PuBuGn’,}
+               \PY{c+c1}{\PYZsh{}                        ‘PuRd’, ‘RdPu’, ‘YlGn’, ‘YlGnBu’, ‘YlOrBr’, and ‘YlOrRd\PYZsq{}}
+               \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PuRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+               \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} 
+               \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,}
+               \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best neighborhood to live in}\PY{l+s+s1}{\PYZsq{}}
+           \PY{p}{)}
+           
+           \PY{c+c1}{\PYZsh{} Add neighborhood markers to the map}
+           \PY{c+c1}{\PYZsh{} NB: If the chloropleth is added after the markers, the markers wont\PYZsq{}t display their labels}
+           \PY{k}{for} \PY{n}{coord}\PY{p}{,} \PY{n}{borough}\PY{p}{,} \PY{n}{neighborhood} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coordonees\PYZus{}centre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                      \PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrondissement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                      \PY{n}{neighborhoods}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quartier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+               \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{neighborhood}\PY{p}{,} \PY{n}{borough}\PY{p}{)}
+               \PY{n}{label} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{parse\PYZus{}html}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+               \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                   \PY{n}{coord}\PY{p}{,}
+                   \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                   \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                   \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{fill}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                   \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}3186cc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{map\PYZus{}paris\PYZus{}score}\PY{p}{)}
+           
+           \PY{c+c1}{\PYZsh{} Display map}
+           
+           \PY{n}{map\PYZus{}paris\PYZus{}score}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1023}]:} <folium.folium.Map at 0x1a15add89e8>
+\end{Verbatim}
+            
+    \subsection{5. Conclusion}\label{conclusion}
+
+Considering the methodological and scoring flaws of the project, I would
+suggest Jean-Philippe looks for an appartment in the following
+neighborhoods: Saint-Germain-des-Prés, Saint-Gervais, Archives,
+Notre-Dame-des-Champs, Monnaie, Enfants-Rouges, Arsenal, Gare, Sorbonne,
+Saint-Thomas-d'Aquin.
+
+This project was quite interesting due to the richness brought by
+crossing the FourSquare API, CityMapper API and Paris geospatial data.
+The toughest issues I had to deal with were the restriction caps on API
+calls with the FourSquare API. I had to segment my calls, handle errors,
+and save the data in local files to be sure that I would be able to run
+all my requests. If I would come back and extend this project I wish I
+would have data on rent prices to balance the neighborhood scores.
+
+Another issue was establishing the scoring formulas. The restaurant
+score was not really meaningful and its formula could be greatly
+improved to reflect the density of restaurants as well as the rating of
+the best restaurants in the neighborhood.
+
+Finally, if this were a real project we should use real locations
+instead of arbitrarily using the centers of each neighborhoods to
+simulate possible appartments where Jean-Philippe could live.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
